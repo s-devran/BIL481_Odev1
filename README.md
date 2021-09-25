@@ -3,6 +3,4 @@ In this web application sum of the given three integers is computed and result w
 
 [![Build Status](https://app.travis-ci.com/s-devran/BIL481_Odev1.svg?branch=main)](https://app.travis-ci.com/s-devran/BIL481_Odev1)
 
-feature/XYZ
-
 Demo site: https://infinite-beach-28359.herokuapp.com/
