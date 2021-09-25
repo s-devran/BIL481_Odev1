@@ -3,15 +3,22 @@
  */
 package BIL481_Odev1;
 
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import spark.ModelAndView;
+import spark.template.mustache.MustacheTemplateEngine;
+
 
 public class App {
+
     public String getGreeting() {
         return "Hello world.";
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
     }
 
     public static boolean searchSum(ArrayList<Integer> array, Integer number1, Integer number2, Integer number3) {
@@ -27,4 +34,64 @@ public class App {
         return false;
     }
 
+    public static void main(String[] args) {
+        port(getHerokuAssignedPort());
+
+        get("/", (req, res) -> "Hello, World");
+
+        post("/compute", (req, res) -> {
+          //System.out.println(req.queryParams("input1"));
+          //System.out.println(req.queryParams("input2"));
+
+          String input1 = req.queryParams("input1");
+          java.util.Scanner sc1 = new java.util.Scanner(input1);
+          sc1.useDelimiter("[;\r\n]+");
+          java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+          while (sc1.hasNext())
+          {
+            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+            inputList.add(value);
+          }
+          sc1.close();
+          System.out.println(inputList);
+
+          Integer input2AsInt = null, input3AsInt = null, input4AsInt = null;
+
+          String input2 = req.queryParams("input2").replaceAll("\\s","");
+          if(input2 != null) {   
+            input2AsInt = Integer.parseInt(input2);
+          }
+          String input3 = req.queryParams("input3").replaceAll("\\s","");
+          if(input3 != null) {
+            input3AsInt = Integer.parseInt(input3);
+          }
+          String input4 = req.queryParams("input2").replaceAll("\\s","");
+          if(input4 != null) {           
+            input4AsInt = Integer.parseInt(input4);
+          }
+
+          boolean result = App.searchSum(inputList, input2AsInt, input3AsInt, input4AsInt);
+
+          Map<String, Boolean> map = new HashMap<String, Boolean>();
+          map.put("result", result);
+          return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
+
+
+        get("/compute",
+            (rq, rs) -> {
+              Map<String, String> map = new HashMap<String, String>();
+              map.put("result", "not computed yet!");
+              return new ModelAndView(map, "compute.mustache");
+            },
+            new MustacheTemplateEngine());
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
 }

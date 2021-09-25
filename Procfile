@@ -1,0 +1,1 @@
+web: java -jar build/libs/BIL481_Odev1-all.jar
