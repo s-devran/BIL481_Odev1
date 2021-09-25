@@ -53,7 +53,7 @@ public class App {
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
           while (sc1.hasNext())
           {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+            int value = Integer.parseInt(sc1.next().replaceAll("\\n",""));
             inputList.add(value);
           }
           sc1.close();
@@ -61,15 +61,15 @@ public class App {
 
           Integer input2AsInt = null, input3AsInt = null, input4AsInt = null;
 
-          String input2 = req.queryParams("input2").replaceAll("\\s","");
+          String input2 = req.queryParams("input2").replaceAll("\\n","");
           if(input2 != null) {   
             input2AsInt = Integer.parseInt(input2);
           }
-          String input3 = req.queryParams("input3").replaceAll("\\s","");
+          String input3 = req.queryParams("input3").replaceAll("\\n","");
           if(input3 != null) {
             input3AsInt = Integer.parseInt(input3);
           }
-          String input4 = req.queryParams("input2").replaceAll("\\s","");
+          String input4 = req.queryParams("input2").replaceAll("\\n","");
           if(input4 != null) {           
             input4AsInt = Integer.parseInt(input4);
           }
