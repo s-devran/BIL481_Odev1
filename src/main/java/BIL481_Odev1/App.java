@@ -44,8 +44,6 @@ public class App {
         get("/", (req, res) -> "Hello, World");
 
         post("/compute", (req, res) -> {
-          //System.out.println(req.queryParams("input1"));
-          //System.out.println(req.queryParams("input2"));
 
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
@@ -53,7 +51,7 @@ public class App {
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
           while (sc1.hasNext())
           {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\n",""));
+            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
             inputList.add(value);
           }
           sc1.close();
@@ -61,16 +59,16 @@ public class App {
 
           Integer input2AsInt = null, input3AsInt = null, input4AsInt = null;
 
-          String input2 = req.queryParams("input2").replaceAll("\\n","");
-          if(input2 != null) {   
+          String input2 = req.queryParams("input2").replaceAll("\\s","");
+          if(!input2.equals("") && input2.matches("-?\\d+")) {   
             input2AsInt = Integer.parseInt(input2);
           }
-          String input3 = req.queryParams("input3").replaceAll("\\n","");
-          if(input3 != null) {
+          String input3 = req.queryParams("input3").replaceAll("\\s","");
+          if(!input3.equals("") && input3.matches("-?\\d+")) {
             input3AsInt = Integer.parseInt(input3);
           }
-          String input4 = req.queryParams("input2").replaceAll("\\n","");
-          if(input4 != null) {           
+          String input4 = req.queryParams("input4").replaceAll("\\s","");
+          if(!input4.equals("") && input4.matches("-?\\d+")) {           
             input4AsInt = Integer.parseInt(input4);
           }
 

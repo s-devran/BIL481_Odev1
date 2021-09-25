@@ -39,21 +39,9 @@ class AppTest {
     }
 
     @Test
-    public void testFirstMissingInteger() {
+    public void testMissingInteger() {
         ArrayList<Integer> array = new ArrayList<>(Arrays.asList(3, 25, 1, 11, 21));
         assertFalse(App.searchSum(array, null, 1, 2));
-    }
-
-    @Test
-    public void testSecondMissingInteger() {
-        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(3, 25, 1, 11, 21));
-        assertFalse(App.searchSum(array, 1, null, 2));
-    }
-
-    @Test
-    public void testThirdMissingInteger() {
-        ArrayList<Integer> array = new ArrayList<>(Arrays.asList(3, 25, 1, 11, 21));
-        assertFalse(App.searchSum(array, 1, 2, null));
     }
 
 }
