@@ -51,7 +51,12 @@ public class App {
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
           while (sc1.hasNext())
           {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+            String item = sc1.next();
+            if (!item.replaceAll("\\s","").matches("-?\\d+")) {
+              inputList = null;
+              break;
+            }
+            int value = Integer.parseInt(item.replaceAll("\\s",""));
             inputList.add(value);
           }
           sc1.close();
